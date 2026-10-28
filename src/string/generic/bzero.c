@@ -24,8 +24,8 @@
 #include <platform/string.h>
 
 #if !VARIANT_STATIC
-// to satisfy compiler-generated memset inside libplatform (e.g. makecontext)
-__attribute__((visibility("hidden")))
+// x86Code: exported, the iOS simulator runtime expects memset from libsystem_platform
+__attribute__((visibility("default")))
 void *
 memset(void *b, int c, size_t len)
 {
