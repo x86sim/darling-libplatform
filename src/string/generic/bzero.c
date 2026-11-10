@@ -24,7 +24,7 @@
 #include <platform/string.h>
 
 #if !VARIANT_STATIC
-// x86Code: exported, the iOS simulator runtime expects memset from libsystem_platform
+// x86Sim: exported, the iOS simulator runtime expects memset from libsystem_platform
 __attribute__((visibility("default")))
 void *
 memset(void *b, int c, size_t len)

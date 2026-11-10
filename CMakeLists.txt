@@ -102,7 +102,7 @@ set(platform_sources
 )
 
 set(DYLIB_INSTALL_NAME "/usr/lib/system/libsystem_platform.dylib")
-# x86Code: public string/memory exports for the iOS simulator runtime (shared library only)
+# x86Sim: public string/memory exports for the iOS simulator runtime (shared library only)
 set_source_files_properties(src/simcompat/simcompat.c PROPERTIES COMPILE_FLAGS "-fno-builtin")
 add_circular(platform FAT
 	SOURCES ${platform_sources} src/simcompat/simcompat.c
