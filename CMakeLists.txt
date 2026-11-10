@@ -32,6 +32,9 @@ if (TARGET_x86_64 OR TARGET_ARM64)
 		set(platform_64bit_sources
 			src/cachecontrol/arm64/cache.S
 			src/setjmp/arm64/setjmp.S
+			src/ucontext/arm64/_ctx_start.S
+			src/ucontext/arm64/getcontext.S
+			src/ucontext/arm64/_setcontext.S
 		)
 	endif ()
 	add_darling_object_library(platform_64bit ${platform_64bit_sources})
@@ -129,3 +132,13 @@ if (BUILD_TARGET_64BIT)
 endif (BUILD_TARGET_64BIT)
 
 install(TARGETS platform DESTINATION libexec/darling/usr/lib/system)
+
+# These files implement memset, memmove, memcmp and memchr themselves.
+# Without -fno-builtin the compiler may recognise their loops as those
+# very functions and turn them into calls to themselves.
+set_source_files_properties(
+	src/string/generic/bzero.c
+	src/string/generic/memchr.c
+	src/string/generic/memcmp.c
+	src/string/generic/memmove.c
+	PROPERTIES COMPILE_OPTIONS "-fno-builtin")
